@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepara 360 - Fase II: Gestión Administrativa y Operativa</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .card.alert {
+            border-left-color: var(--danger);
+        }
+
+        .card.success {
+            border-left-color: var(--success);
+        }
+
+        .card.warning {
+            border-left-color: var(--accent);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: white;
+            background-color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .badge.danger { background-color: var(--danger); }
+        .badge.warning { background-color: var(--accent); }
+        .badge.success { background-color: var(--success); }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--secondary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid var(--secondary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Prepara 360 — Fase II</h1>
+        <p>Encuentro Técnico con Directores: Abordaje Administrativo, Operativo y Preparativos 2026-2027</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab-smart')">Objetivos SMART</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-procesos')">Despliegue de Procesos</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-visitas')">Visitas Críticas y Distritos</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-inscripcion')">Inscripción y SIGER</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-proyeccion')">Año Escolar 2026-2027</button>
+    </div>
+
+    <!-- TAB 1: OBJETIVOS SMART -->
+    <div id="tab-smart" class="section-content active">
+        <div class="card">
+            <h2>🎯 Objetivos SMART para la Gestión Administrativa y Operativa</h2>
+            <p>Los objetivos orientan la segunda fase del programa Prepara 360, alineando el esfuerzo técnico y directivo hacia metas medibles y alcanzables.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <span class="badge">Específico (S)</span>
+                    <h3>Optimización Operativa</h3>
+                    <p>Garantizar que el 100% de los centros educativos del programa implementen los protocolos administrativos estandarizados de Prepara 360 durante el año escolar 2026-2027.</p>
+                </div>
+                <div class="card">
+                    <span class="badge warning">Medible (M)</span>
+                    <h3>Monitoreo y Alertas</h3>
+                    <p>Reducir en un 35% los índices de criticidad detectados en el diagnóstico institucional mediante intervenciones personalizadas en los distritos priorizados para el año escolar 2026-2027.</p>
+                </div>
+                <div class="card">
+                    <span class="badge success">Alcanzable (A)</span>
+                    <h3>Acompañamiento Directivo</h3>
+                    <p>Ejecutar rondas de visitas personalizadas y mesas de trabajo directas con los directores de centros identificados con alertas tempranas en el año escolar 2026-2027.</p>
+                </div>
+                <div class="card">
+                    <span class="badge danger">Relevante & Temporal (R / T)</span>
+                    <h3>Integridad en SIGER</h3>
+                    <p>Lograr que el 100% de los expedientes estudiantiles estén validados y actualizados en el sistema SIGER año escolar 2026-2027.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: DESPLIEGUE DE PROCESOS -->
+    <div id="tab-procesos" class="section-content">
+        <div class="card">
+            <h2>⚙️ Despliegue de Procesos Administrativos y Operativos</h2>
+            <p>Ruta crítica para la ejecución eficiente de los procesos clave dentro del programa Prepara 360 para el año escolar 2026-2027:</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>1. Socialización de Lineamientos</h3>
+                    <p>Desarrollo de los encuentros de la Fase II con técnicos regionales, distritales y directores de centros educativos para alinear la visión operativa.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2. Evaluación de Diagnósticos y Alertas Tempranas</h3>
+                    <p>Revisión exhaustiva de los indicadores de gestión de cada centro para clasificar el nivel de riesgo administrativo y operativo.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>3. Intervención en Terreno (Acompañamiento In Situ)</h3>
+                    <p>Visitas personalizadas a directores de centros críticos según la programación de fases distritales.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>4. Auditoría de Expedientes y SIGER</h3>
+                    <p>Verificación cruzada de la documentación estudiantil y estatus reglamentario en la plataforma oficial.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: VISITAS CRÍTICAS Y DISTRITOS -->
+    <div id="tab-visitas" class="section-content">
+        <div class="card alert">
+            <h2>🚨 Acompañamiento Personalizado a Centros Críticos</h2>
+            <p>Aquellos centros educativos que, a partir del diagnóstico institucional y las alertas tempranas, presenten vulnerabilidades administrativas u operativas recibirán <strong>visitas personalizadas</strong>.</p>
+            
+            <h3>Cronograma de Despliegue por Fases Distritales:</h3>
+            <div class="grid-2" style="margin-top: 15px;">
+                <div class="card warning">
+                    <span class="badge warning">Fase 1 de Intervención</span>
+                    <h3>Distritos Prioritarios: 02, 03 y 04</h3>
+                    <p>Abordaje inicial intensivo enfocado en directores con alertas tempranas críticas para encauzar procesos administrativos urgentes.</p>
+                </div>
+                <div class="card success">
+                    <span class="badge success">Fase 2 de Intervención</span>
+                    <h3>Distritos Prioritarios: 01, 05 y 06</h3>
+                    <p>Segunda etapa de seguimiento personalizado, consolidación de buenas prácticas y revisión de reportes operativos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: INSCRIPCIÓN Y SIGER -->
+    <div id="tab-inscripcion" class="section-content">
+        <div class="card">
+            <h2>📁 Inscripción de Estudiantes y Validación en SIGER</h2>
+            <p>El control riguroso de la matrícula es pilar fundamental para la transparencia y eficiencia del programa Prepara 360.</p>
+            
+            <ul>
+                <li><strong>Expedientes Completos:</strong> Garantizar que cada legajo estudiantil contenga la documentación requerida por normativa (actas de nacimiento, certificados de niveles anteriores, fotos, etc.).</li>
+                <li><strong>Verificación de Condición Académica:</strong> Comprobar minuciosamente el estatus de promoción, aplazamientos o retiros de cada alumno.</li>
+                <li><strong>Sincronización con el SIGER:</strong> Asegurar que la inscripción física refleje fielmente la realidad en la plataforma digital del sistema, evitando inconsistencias de matrícula.</li>
+                <li><strong>Monitoreo de Alertas de Matrícula:</strong> Establecer reportes semanales para identificar centros con retrasos en el proceso de registro.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 5: AÑO ESCOLAR 2026-2027 -->
+    <div id="tab-proyeccion" class="section-content">
+        <div class="card success">
+            <h2>📅 Preparativos para el Inicio del Año Escolar 2026-2027</h2>
+            <p>Planificación anticipada para asegurar un arranque exitoso, ordenado y sin fricciones operativas en el próximo período lectivo.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Gestión de Recursos y Horarios</h3>
+                    <p>Organización anticipada de cargas horarias, asignación de docentes facilitadores y disponibilidad de materiales de apoyo pedagógico.</p>
+                </div>
+                <div class="card">
+                    <h3>Infraestructura y Logística</h3>
+                    <p>Revisión de espacios físicos, condiciones de habilitación de los centros y optimización de recursos tecnológicos para los estudiantes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Prepara 360 &bull; Dirección Regional 15 de Educación &bull; Gestión Administrativa y Operativa
+    </footer>
+</div>
+
+<script>
+    function switchTab(evt, tabId) {
+        const contents = document.querySelectorAll('.section-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
